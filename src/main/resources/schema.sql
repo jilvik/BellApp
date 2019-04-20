@@ -33,9 +33,9 @@ CREATE TABLE IF NOT EXISTS person (
 
 CREATE TABLE IF NOT EXISTS document (
 	document_id       INT           NOT NULL AUTO_INCREMENT,
-	doc_type_id       INT(11)       NOT NULL,
+	doc_type_id       INT           NOT NULL,
 	document_number   VARCHAR(30)   NOT NULL UNIQUE,
-	document_date     DATE(30)      NOT NULL,
+	document_date     DATE          NOT NULL,
 
 	PRIMARY KEY (document_id)
 );
@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS doc_type (
 
 CREATE TABLE IF NOT EXISTS country (
 	country_id        INT           NOT NULL AUTO_INCREMENT,
-    country_code      VARCHAR(5)    NOT NULL UNIQUE,
+    country_code      VARCHAR(3)    NOT NULL UNIQUE,
 	country_name      VARCHAR(30)   NOT NULL UNIQUE,
 
 	PRIMARY KEY (country_id)
