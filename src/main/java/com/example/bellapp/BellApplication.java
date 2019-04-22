@@ -1,4 +1,4 @@
-package com.example.BellApplication;
+package com.example.bellapp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
