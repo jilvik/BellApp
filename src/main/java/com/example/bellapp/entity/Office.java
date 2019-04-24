@@ -1,4 +1,4 @@
-package entity;
+package com.example.bellapp.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +11,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
+
+/**
+ * Office
+ * Information about office
+ */
 @Entity
 @Table(name = "office")
 public class Office {
@@ -18,19 +23,29 @@ public class Office {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
-    private int id;
+    private Integer id;
 
+    /**
+     * Utility box of "Hibernate"
+     */
     @Version
-    private int version;
+    private Integer version;
 
-    private int orgId;
-
+    /**
+     * Office name
+     */
     @Column (name = "name", length = 40, nullable = false)
     private String name;
 
+    /**
+     * Office address
+     */
     @Column (name = "address", length = 250, nullable = false)
     private String address;
 
+    /**
+     * Office phone
+     */
     @Column (name = "phone", length = 30, nullable = false)
     private String phone;
 
@@ -38,14 +53,6 @@ public class Office {
     @JoinColumn(name = "org_id")
     private Organization organization;
 
-
-    public int getOrgId() {
-        return orgId;
-    }
-
-    public void setOrgId(int orgId) {
-        this.orgId = orgId;
-    }
 
     public int getId() {
         return id;

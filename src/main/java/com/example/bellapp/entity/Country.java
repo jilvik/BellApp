@@ -1,4 +1,4 @@
-package entity;
+package com.example.bellapp.entity;
 
 
 import javax.persistence.Column;
@@ -9,6 +9,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
+
+/**
+ * Country
+ * It contains name and code of country
+ */
 @Entity
 @Table (name = "country")
 public class Country {
@@ -16,14 +21,23 @@ public class Country {
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)
     @Column (name = "id", nullable = false)
-    private int id;
+    private Integer id;
 
+    /**
+     * Utility box of "Hibernate"
+     */
     @Version
-    private int version;
+    private Integer version;
 
+    /**
+     * Country code
+     */
     @Column (name = "code", length = 3, nullable = false, unique = true)
     private String code;
 
+    /**
+     * Country name
+     */
     @Column (name = "name", length = 30, nullable = false, unique = true)
     private String name;
 

@@ -1,4 +1,4 @@
-package entity;
+package com.example.bellapp.entity;
 
 
 import javax.persistence.Column;
@@ -13,6 +13,11 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
+
+/**
+ * Person
+ * Information about person
+ */
 @Entity
 @Table (name = "person")
 public class Person {
@@ -20,31 +25,43 @@ public class Person {
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)
     @Column (name = "id", nullable = false)
-    private int id;
+    private Integer id;
 
+    /**
+     * Utility box of "Hibernate"
+     */
     @Version
-    private int version;
+    private Integer version;
 
-    private int officeId;
-
+    /**
+     * Last name
+     */
     @Column (name = "last_name", length = 20, nullable = false)
     private String lastName;
 
+    /**
+     * First name
+     */
     @Column (name = "first_name", length = 20, nullable = false)
     private String firstName;
 
+    /**
+     * Middle name
+     */
     @Column (name = "middle_name", length = 20)
     private String middleName;
 
+    /**
+     * Person position in the organization
+     */
     @Column (name = "post", length = 30, nullable = false)
     private String post;
 
+    /**
+     * Person phone
+     */
     @Column (name = "phone", length = 20, nullable = false)
     private String phone;
-
-    private int documentId;
-
-    private int countryId;
 
     @ManyToOne (fetch = FetchType.LAZY)
     @JoinColumn (name = "country_id")
@@ -61,14 +78,6 @@ public class Person {
 
     public int getId() {
         return id;
-    }
-
-    public int getOfficeId() {
-        return officeId;
-    }
-
-    public void setOfficeId(int officeId) {
-        this.officeId = officeId;
     }
 
     public String getLastName() {
@@ -109,22 +118,6 @@ public class Person {
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public int getDocumentId() {
-        return documentId;
-    }
-
-    public void setDocumentId(int documentId) {
-        this.documentId = documentId;
-    }
-
-    public int getCountryId() {
-        return countryId;
-    }
-
-    public void setCountryId(int countryId) {
-        this.countryId = countryId;
     }
 
     public Country getCountry() {

@@ -1,4 +1,4 @@
-package entity;
+package com.example.bellapp.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,24 +15,29 @@ import javax.persistence.Version;
 import java.util.Date;
 
 
+/**
+ * Document
+ * It is the personal document
+ */
 @Entity
 @Table (name = "document")
 public class Document {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue (strategy = GenerationType.AUTO)
     @Column (name = "id", nullable = false)
-    private int id;
+    private Integer id;
 
+    /**
+     * Utility box of "Hibernate"
+     */
     @Version
-    private int version;
-
-    private int docTypeId;
+    private Integer version;
 
     @Column (name = "number", length = 30, nullable = false, unique = true)
     private String number;
 
-    @Temporal(TemporalType.DATE)
+    @Temporal (TemporalType.DATE)
     @Column (name = "issue_date", nullable = false)
     private Date issueDate;
 
@@ -43,14 +48,6 @@ public class Document {
 
     public int getId() {
         return id;
-    }
-
-    public int getDocTypeId() {
-        return docTypeId;
-    }
-
-    public void setDocTypeId(int docTypeId) {
-        this.docTypeId = docTypeId;
     }
 
     public String getNumber() {

@@ -1,8 +1,8 @@
 CREATE TABLE IF NOT EXISTS office (
-    version       INT           NOT NULL,
+    version       INTEGER       NOT NULL,
 
-	org_id        INT           NOT NULL,
-	id            INT           NOT NULL AUTO_INCREMENT,
+	org_id        INTEGER       NOT NULL,
+	id            INTEGER       NOT NULL AUTO_INCREMENT,
 	name          VARCHAR(40)   NOT NULL,
 	address       VARCHAR(255)  NOT NULL,
 	phone         VARCHAR(30)   NOT NULL,
@@ -11,9 +11,9 @@ CREATE TABLE IF NOT EXISTS office (
 );
 
 CREATE TABLE IF NOT EXISTS organization (
-    version       INT           NOT NULL,
+    version       INTEGER       NOT NULL,
 
-	id            INT           NOT NULL AUTO_INCREMENT,
+	id            INTEGER       NOT NULL AUTO_INCREMENT,
 	full_name     VARCHAR(100)  NOT NULL,
 	inn           VARCHAR(12)   NOT NULL UNIQUE,
 	kpp           VARCHAR(9)    NOT NULL,
@@ -22,36 +22,36 @@ CREATE TABLE IF NOT EXISTS organization (
 );
 
 CREATE TABLE IF NOT EXISTS person (
-    version       INT           NOT NULL,
+    version       INTEGER       NOT NULL,
 
-    id            INT           NOT NULL AUTO_INCREMENT,
-	office_id     INT           NOT NULL,
+    id            INTEGER       NOT NULL AUTO_INCREMENT,
+	office_id     INTEGER       NOT NULL,
 	last_name     VARCHAR(20)   NOT NULL,
 	first_name    VARCHAR(20)   NOT NULL,
 	middle_name   VARCHAR(20),
 	post          VARCHAR(30)   NOT NULL,
 	phone         VARCHAR(20)   NOT NULL,
-	document_id   INT           NOT NULL,
-	country_id    INT           NOT NULL,
+	document_id   INTEGER       NOT NULL,
+	country_id    INTEGER       NOT NULL,
 
 	PRIMARY KEY (id)
 );
 
 CREATE TABLE IF NOT EXISTS document (
-    version       INT           NOT NULL,
+    version       INTEGER       NOT NULL,
 
-	id            INT           NOT NULL AUTO_INCREMENT,
-	doc_type_id   INT           NOT NULL,
+	id            INTEGER       NOT NULL AUTO_INCREMENT,
+	doc_type_id   INTEGER       NOT NULL,
 	number        VARCHAR(30)   NOT NULL UNIQUE,
-	issue_date     DATE         NOT NULL,
+	issue_date    DATE          NOT NULL,
 
 	PRIMARY KEY (id)
 );
 
 CREATE TABLE IF NOT EXISTS doc_type (
-    version       INT           NOT NULL,
+    version       INTEGER       NOT NULL,
 
-	id            INT           NOT NULL AUTO_INCREMENT,
+	id            INTEGER       NOT NULL AUTO_INCREMENT,
     code          VARCHAR(2)    NOT NULL UNIQUE,
 	name          VARCHAR(115)  NOT NULL UNIQUE,
 
@@ -59,9 +59,9 @@ CREATE TABLE IF NOT EXISTS doc_type (
 );
 
 CREATE TABLE IF NOT EXISTS country (
-    version       INT           NOT NULL,
+    version       INTEGER       NOT NULL,
 
-	id            INT           NOT NULL AUTO_INCREMENT,
+	id            INTEGER       NOT NULL AUTO_INCREMENT,
     code          VARCHAR(3)    NOT NULL UNIQUE,
 	name          VARCHAR(30)   NOT NULL UNIQUE,
 
