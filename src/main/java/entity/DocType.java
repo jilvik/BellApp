@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 @Entity
 @Table (name = "doc_type")
@@ -17,23 +18,18 @@ public class DocType {
     @Column (name = "id", nullable = false)
     private int id;
 
+    @Version
+    private int version;
+
     @Column (name = "code", length = 2, nullable = false, unique = true)
     private String code;
 
     @Column (name = "name", length = 115, nullable = false, unique = true)
     private String name;
 
-    public DocType() {
-
-    }
-
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getCode() {

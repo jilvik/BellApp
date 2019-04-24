@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Version;
 import java.util.Date;
 
 
@@ -23,7 +24,9 @@ public class Document {
     @Column (name = "id", nullable = false)
     private int id;
 
-    @Column (name = "doc_type_id", nullable = false)
+    @Version
+    private int version;
+
     private int docTypeId;
 
     @Column (name = "number", length = 30, nullable = false, unique = true)
@@ -37,17 +40,9 @@ public class Document {
     @JoinColumn (name = "doc_type_id")
     private DocType docType;
 
-    public Document() {
-
-    }
-
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public int getDocTypeId() {

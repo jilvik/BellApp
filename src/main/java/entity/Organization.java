@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 @Entity
 @Table (name = "organization")
@@ -16,26 +17,21 @@ public class Organization {
     @Column (name = "id", nullable = false)
     private int id;
 
+    @Version
+    private int version;
+
     @Column (name = "full_name", length = 100, nullable = false)
     private String fullName;
 
     @Column (name = "inn", length = 12, nullable = false, unique = true)
     private String inn;
 
-    @Column (name = "kpp", length = 9, nullable = false, unique = true)
+    @Column (name = "kpp", length = 9, nullable = false)
     private String kpp;
-
-    public Organization() {
-
-    }
 
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getFullName() {

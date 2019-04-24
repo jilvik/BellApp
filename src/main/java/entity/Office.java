@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 @Entity
 @Table(name = "office")
@@ -19,7 +20,9 @@ public class Office {
     @Column(name = "id", nullable = false)
     private int id;
 
-    @Column (name = "org_id")
+    @Version
+    private int version;
+
     private int orgId;
 
     @Column (name = "name", length = 40, nullable = false)
@@ -32,12 +35,8 @@ public class Office {
     private String phone;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "doc_type_id")
+    @JoinColumn(name = "org_id")
     private Organization organization;
-
-    public Office() {
-
-    }
 
 
     public int getOrgId() {
@@ -50,10 +49,6 @@ public class Office {
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {
