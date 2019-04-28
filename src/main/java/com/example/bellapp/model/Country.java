@@ -1,4 +1,4 @@
-package com.example.bellapp.entity;
+package com.example.bellapp.model;
 
 
 import javax.persistence.Column;
