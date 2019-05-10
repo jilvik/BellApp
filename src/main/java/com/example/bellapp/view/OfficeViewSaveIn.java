@@ -10,7 +10,7 @@ import javax.validation.constraints.NotEmpty;
 @Getter
 @Setter
 @ToString
-public class OfficeViewSave {
+public class OfficeViewSaveIn {
 
     @NotEmpty
     private Integer orgId;

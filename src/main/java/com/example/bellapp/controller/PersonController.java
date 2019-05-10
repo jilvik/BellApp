@@ -1,10 +1,7 @@
 package com.example.bellapp.controller;
 
 
-import com.example.bellapp.view.PersonViewId;
-import com.example.bellapp.view.PersonViewList;
-import com.example.bellapp.view.PersonViewSave;
-import com.example.bellapp.view.PersonViewUpdate;
+import com.example.bellapp.view.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -15,9 +12,9 @@ import java.util.List;
 public class PersonController {
 
     @PostMapping("/api/person/list")
-    public List<PersonViewList> getPersonList(@RequestBody PersonViewList query) {
+    public List<PersonViewListOut> getPersonList(@RequestBody PersonViewListIn input) {
 
-        PersonViewList personViewList = new PersonViewList();
+        PersonViewListIn personViewList = new PersonViewListIn();
 
         personViewList.setOfficeId(1);
         personViewList.setLastName("testLastName");
@@ -27,7 +24,15 @@ public class PersonController {
         personViewList.setDocCode("testDocCode");
         personViewList.setCountryCode("testCountryCode");
 
-        return Arrays.asList(personViewList);
+        PersonViewListOut personViewListOut = new PersonViewListOut();
+
+        personViewListOut.setId(5);
+        personViewListOut.setLastName("testOutLastName");
+        personViewListOut.setFirstName("testOutFirstName");
+        personViewListOut.setMiddleName("testOutMiddleName");
+        personViewListOut.setPost("testOutPost");
+
+        return Arrays.asList(personViewListOut);
     }
 
     @GetMapping("/api/person/{id}")
@@ -49,9 +54,9 @@ public class PersonController {
     }
 
     @PostMapping("/api/person/update")
-    public String getPersonUpdate(@RequestBody PersonViewUpdate query) {
+    public PersonViewUpdateOut getPersonUpdate(@RequestBody PersonViewUpdateIn input) {
 
-        PersonViewUpdate personViewUpdate = new PersonViewUpdate();
+        PersonViewUpdateIn personViewUpdate = new PersonViewUpdateIn();
 
         personViewUpdate.setId(6);
         personViewUpdate.setOfficeId(4);
@@ -66,13 +71,16 @@ public class PersonController {
         personViewUpdate.setCountryCode("testCountryCode");
         personViewUpdate.setIdentified(true);
 
-        return "success";
+        PersonViewUpdateOut personViewUpdateOut = new PersonViewUpdateOut();
+        personViewUpdateOut.setResult("success");
+
+        return personViewUpdateOut;
     }
 
     @PostMapping("/api/person/save")
-    public String getPersonSave(@RequestBody PersonViewSave query) {
+    public PersonViewSaveOut getPersonSave(@RequestBody PersonViewSaveIn input) {
 
-        PersonViewSave personViewSave = new PersonViewSave();
+        PersonViewSaveIn personViewSave = new PersonViewSaveIn();
 
         personViewSave.setOfficeId(7);
         personViewSave.setFirstName("testFirstName");
@@ -85,7 +93,10 @@ public class PersonController {
         personViewSave.setDocumentNumber("testDocNumber");
         personViewSave.setDocumentDate(new Date(1999, 12, 9));
 
-        return "success";
+        PersonViewSaveOut personViewSaveOut = new PersonViewSaveOut();
+        personViewSaveOut.setResult("success");
+
+        return personViewSaveOut;
     }
 
 }

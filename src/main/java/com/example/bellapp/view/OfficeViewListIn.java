@@ -3,28 +3,21 @@ package com.example.bellapp.view;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.validation.constraints.NotEmpty;
 
 @Getter
 @Setter
-public class OfficeViewList {
-
-    private Integer id;
+@ToString
+public class OfficeViewListIn {
 
     @NotEmpty
     private Integer ogrId;
-
     private String name;
-
     private String phone;
-
     private boolean isActive;
 
-    @Override
-    public String toString() {
-        return "{id:" + id + ";name:" + name + ";isActive:" + isActive + "}";
-    }
 }
 
 //5. api/office/list

@@ -10,7 +10,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-public class PersonViewSave {
+public class PersonViewSaveIn {
 
     private Integer officeId;
     private String lastName;

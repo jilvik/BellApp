@@ -1,10 +1,7 @@
 package com.example.bellapp.controller;
 
 
-import com.example.bellapp.view.OrganizationViewId;
-import com.example.bellapp.view.OrganizationViewList;
-import com.example.bellapp.view.OrganizationViewSave;
-import com.example.bellapp.view.OrganizationViewUpdate;
+import com.example.bellapp.view.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -14,16 +11,21 @@ import java.util.List;
 public class OrganizationController {
 
     @PostMapping("/api/organization/list")
-    public List<OrganizationViewList> getOrganizationList(@RequestBody OrganizationViewList query) {
+    public List<OrganizationViewListOut> getOrganizationList(@RequestBody OrganizationViewListIn input) {
+//TODO: add todo
+        OrganizationViewListIn organizationViewList = new OrganizationViewListIn();
 
-        OrganizationViewList organizationViewList = new OrganizationViewList();
-
-        organizationViewList.setId(1);
         organizationViewList.setName("testName");
         organizationViewList.setInn("testInn");
         organizationViewList.setActive(true);
 
-        return Arrays.asList(organizationViewList);
+        OrganizationViewListOut organizationViewListOut = new OrganizationViewListOut();
+
+        organizationViewListOut.setId(1);
+        organizationViewListOut.setName("testOutName");
+        organizationViewListOut.setActive(true);
+
+        return Arrays.asList(organizationViewListOut);
     }
 
     @GetMapping("/api/organization/{id}")
@@ -45,9 +47,9 @@ public class OrganizationController {
     }
 
     @PostMapping("/api/organization/update")
-    public String getOrganizationUpdate(@RequestBody OrganizationViewUpdate query) {
+    public OrganizationViewUpdateOut getOrganizationUpdate(@RequestBody OrganizationViewUpdateIn input) {
 
-        OrganizationViewUpdate organizationViewUpdate = new OrganizationViewUpdate();
+        OrganizationViewUpdateIn organizationViewUpdate = new OrganizationViewUpdateIn();
 
         organizationViewUpdate.setId(2);
         organizationViewUpdate.setName("testName");
@@ -58,13 +60,16 @@ public class OrganizationController {
         organizationViewUpdate.setPhone("testPhone");
         organizationViewUpdate.setActive(true);
 
-        return "success";
+        OrganizationViewUpdateOut organizationViewUpdateOut = new OrganizationViewUpdateOut();
+        organizationViewUpdateOut.setResult("success");
+
+        return organizationViewUpdateOut;
     }
 
     @PostMapping("/api/organization/save")
-    public String getOrganizationSave(@RequestBody OrganizationViewSave query) {
+    public OrganizationViewSaveOut getOrganizationSave(@RequestBody OrganizationViewSaveIn input) {
 
-        OrganizationViewSave organizationViewSave = new OrganizationViewSave();
+        OrganizationViewSaveIn organizationViewSave = new OrganizationViewSaveIn();
 
         organizationViewSave.setName("testName");
         organizationViewSave.setFullName("testFullName");
@@ -73,8 +78,11 @@ public class OrganizationController {
         organizationViewSave.setAddress("testAddress");
         organizationViewSave.setPhone("testPhone");
         organizationViewSave.setActive(true);
+//Conttoller ->DAO
+        OrganizationViewSaveOut organizationViewSaveOut = new OrganizationViewSaveOut();
+        organizationViewSaveOut.setResult("success");
 
-        return "success";
+        return organizationViewSaveOut;
     }
 
 }

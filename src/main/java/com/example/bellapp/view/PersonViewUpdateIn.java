@@ -11,7 +11,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-public class PersonViewUpdate {
+public class PersonViewUpdateIn {
 
     @NotNull
     private Integer id;

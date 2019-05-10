@@ -10,7 +10,10 @@ import javax.validation.constraints.NotEmpty;
 @Getter
 @Setter
 @ToString
-public class OrganizationViewSave {
+public class OrganizationViewUpdateIn {
+
+    @NotEmpty
+    private Integer id;
 
     @NotEmpty
     private String name;
@@ -33,12 +36,13 @@ public class OrganizationViewSave {
 
 }
 
-//4. api/organization/save
+//3. api/organization/update
 //        In: {
+//        “id”:””, //обязательный параметр
 //        “name”:””, //обязательный параметр
 //        “fullName”:””, //обязательный параметр
 //        “inn”:””, //обязательный параметр
-//        “kpp”:””, //обязательный параметр
+//        “kpp”:””,  //обязательный параметр
 //        “address”:””, //обязательный параметр
 //        “phone”,””,
 //        “isActive”:”true”
