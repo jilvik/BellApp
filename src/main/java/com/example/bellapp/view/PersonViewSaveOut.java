@@ -11,5 +11,4 @@ import lombok.ToString;
 public class PersonViewSaveOut {
 
     private String result;
-
 }

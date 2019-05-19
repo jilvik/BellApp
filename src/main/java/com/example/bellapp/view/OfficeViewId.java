@@ -15,16 +15,4 @@ public class OfficeViewId {
     private String address;
     private String phone;
     private boolean isActive;
-
 }
-
-//6. api/office/{id}
-//        method:GET
-//        Out:
-//        {
-//        “id”:””,
-//        “name”:””,
-//        “address”:””,
-//        “phone”,””,
-//        “isActive”:”true”
-//        }

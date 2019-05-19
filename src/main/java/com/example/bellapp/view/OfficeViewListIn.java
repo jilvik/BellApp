@@ -17,5 +17,4 @@ public class OfficeViewListIn {
     private String name;
     private String phone;
     private boolean isActive;
-
 }

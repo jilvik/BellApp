@@ -18,20 +18,4 @@ public class OfficeViewSaveIn {
     private String address;
     private String phone;
     private boolean isActive;
-
 }
-
-//8. api/office/save
-//        In:
-//        {
-//        “orgId”:””, //обязательный параметр
-//        “name”:””,
-//        “address”:””,
-//        “phone”,””,
-//        “isActive”:”true”
-//        }
-//
-//        Out:
-//        {
-//        “result”:”success”
-//        }

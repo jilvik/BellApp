@@ -12,5 +12,4 @@ public class OrganizationViewListOut {
     private Integer id;
     private String name;
     private boolean isActive;
-
 }

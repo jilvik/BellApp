@@ -70,10 +70,6 @@ public class Organization {
     @Column (name = "is_active", nullable = false)
     private boolean isActive;
 
-    //TODO: maybe it's unnecessary field and it needs to be remove
-    public void setVersion(Integer version) {
-        this.version = version;
-    }
 
     public Integer getId() {
         return id;

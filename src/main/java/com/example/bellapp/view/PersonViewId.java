@@ -24,5 +24,4 @@ public class PersonViewId {
     private String countryName;
     private String countryCode;
     private boolean isIdentified;
-
 }

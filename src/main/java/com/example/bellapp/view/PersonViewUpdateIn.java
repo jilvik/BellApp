@@ -33,5 +33,4 @@ public class PersonViewUpdateIn {
     private Date documentDate;
     private String countryCode;
     private boolean isIdentified;
-
 }

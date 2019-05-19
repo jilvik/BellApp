@@ -28,24 +28,5 @@ public class OrganizationViewSaveIn {
     private String address;
 
     private String phone;
-
     private boolean isActive;
-
-
 }
-
-//4. api/organization/save
-//        In: {
-//        “name”:””, //обязательный параметр
-//        “fullName”:””, //обязательный параметр
-//        “inn”:””, //обязательный параметр
-//        “kpp”:””, //обязательный параметр
-//        “address”:””, //обязательный параметр
-//        “phone”,””,
-//        “isActive”:”true”
-//        }
-//
-//        Out:
-//        {
-//        “result”:”success”
-//        }

@@ -11,5 +11,4 @@ import lombok.ToString;
 public class OfficeViewSaveOut {
 
     private String result;
-
 }

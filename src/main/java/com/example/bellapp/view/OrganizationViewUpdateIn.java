@@ -31,24 +31,5 @@ public class OrganizationViewUpdateIn {
     private String address;
 
     private String phone;
-
     private boolean isActive;
-
 }
-
-//3. api/organization/update
-//        In: {
-//        “id”:””, //обязательный параметр
-//        “name”:””, //обязательный параметр
-//        “fullName”:””, //обязательный параметр
-//        “inn”:””, //обязательный параметр
-//        “kpp”:””,  //обязательный параметр
-//        “address”:””, //обязательный параметр
-//        “phone”,””,
-//        “isActive”:”true”
-//        }
-//
-//        Out:
-//        {
-//        “result”:”success”
-//        }

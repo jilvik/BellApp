@@ -13,5 +13,4 @@ public class OfficeViewListOut {
     private Integer id;
     private String name;
     private boolean isActive;
-
 }

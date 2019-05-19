@@ -15,14 +15,17 @@ public class PersonViewSaveIn {
 
     @NotEmpty
     private Integer officeId;
+
     private String lastName;
 
     @NotEmpty
     private String firstName;
+
     private String middleName;
 
     @NotEmpty
     private String post;
+
     private String phone;
     private String docCode;
     private String docName;
@@ -30,5 +33,4 @@ public class PersonViewSaveIn {
     private Date documentDate;
     private String countryCode;
     private boolean isIdentified;
-
 }

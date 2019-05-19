@@ -16,5 +16,4 @@ public class OrganizationViewListIn {
     private String name;
     private String inn;
     private boolean isActive;
-
 }

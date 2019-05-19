@@ -20,26 +20,4 @@ public class PersonViewListIn {
     private String post;
     private String docCode;
     private String countryCode;
-
 }
-
-
-//9. api/user/list
-//        In (фильтр):
-//        {
-//        “officeId”:””, //обязательный параметр
-//        “firstName”:””,
-//        “lastName”:””,
-//        “middleName”:””,
-//        “position”,””,
-//        “docCode”:””,
-//        “citizenshipCode”:””
-//        }
-//        Out:
-//        {
-//        “id”:””,
-//        “firstName”:””,
-//        “secondName”:””,
-//        “middleName”:””,
-//        “position”:””
-//        }

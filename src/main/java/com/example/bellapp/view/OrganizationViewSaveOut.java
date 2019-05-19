@@ -8,5 +8,6 @@ import lombok.ToString;
 @Setter
 @ToString
 public class OrganizationViewSaveOut {
+
     private String result;
 }

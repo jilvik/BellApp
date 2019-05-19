@@ -15,5 +15,4 @@ public class PersonViewListOut {
     private String firstName;
     private String middleName;
     private String post;
-
 }
