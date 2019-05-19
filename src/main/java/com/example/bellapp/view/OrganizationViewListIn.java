@@ -18,18 +18,3 @@ public class OrganizationViewListIn {
     private boolean isActive;
 
 }
-
-//1. api/organization/list
-//        In (фильтр):
-//        {
-//        “name”:””, //обязательный параметр
-//        “inn”:””,
-//        “isActive”:””
-//        }
-//        Out:
-//        [
-//        {
-//        “id”:””,
-//        “name”:””,
-//        “isActive”:”true”
-//        },

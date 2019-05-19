@@ -23,7 +23,7 @@ import javax.persistence.Version;
 public class Person {
 
     @Id
-    @GeneratedValue (strategy = GenerationType.AUTO)
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     @Column (name = "id", nullable = false)
     private Integer id;
 
@@ -62,6 +62,12 @@ public class Person {
      */
     @Column (name = "phone", length = 20, nullable = false)
     private String phone;
+
+    /**
+     * Person identified
+     */
+    @Column (name = "is_identified", nullable = false)
+    private boolean isIdentified;
 
     @ManyToOne (fetch = FetchType.LAZY)
     @JoinColumn (name = "country_id")
@@ -118,6 +124,14 @@ public class Person {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public boolean isIdentified() {
+        return isIdentified;
+    }
+
+    public void setIdentified(boolean identified) {
+        isIdentified = identified;
     }
 
     public Country getCountry() {

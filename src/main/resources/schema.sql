@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS office (
 	name          VARCHAR(40)   NOT NULL,
 	address       VARCHAR(255)  NOT NULL,
 	phone         VARCHAR(30)   NOT NULL,
+	is_active     BOOLEAN       NOT NULL,
 
 	PRIMARY KEY (id)
 );
@@ -14,9 +15,13 @@ CREATE TABLE IF NOT EXISTS organization (
     version       INTEGER       NOT NULL,
 
 	id            INTEGER       NOT NULL AUTO_INCREMENT,
+	name          VARCHAR(50)   NOT NULL,
 	full_name     VARCHAR(100)  NOT NULL,
 	inn           VARCHAR(12)   NOT NULL UNIQUE,
 	kpp           VARCHAR(9)    NOT NULL,
+	address       VARCHAR(255)  NOT NULL,
+    phone         VARCHAR(30)   NOT NULL,
+    is_active     BOOLEAN       NOT NULL,
 
 	PRIMARY KEY (id)
 );
@@ -33,6 +38,7 @@ CREATE TABLE IF NOT EXISTS person (
 	phone         VARCHAR(20)   NOT NULL,
 	document_id   INTEGER       NOT NULL,
 	country_id    INTEGER       NOT NULL,
+	is_identified BOOLEAN       NOT NULL,
 
 	PRIMARY KEY (id)
 );

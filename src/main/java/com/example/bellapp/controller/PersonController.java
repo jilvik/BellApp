@@ -1,54 +1,79 @@
 package com.example.bellapp.controller;
 
 
+import com.example.bellapp.dao.*;
+import com.example.bellapp.model.*;
 import com.example.bellapp.view.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 public class PersonController {
 
+    @Autowired
+    PersonDao personDao;
+
+    @Autowired
+    OfficeDao officeDao;
+
+    @Autowired
+    DocumentDao documentDao;
+
+    @Autowired
+    DocTypeDao docTypeDao;
+
+    @Autowired
+    CountryDao countryDao;
+
+
     @PostMapping("/api/person/list")
     public List<PersonViewListOut> getPersonList(@RequestBody PersonViewListIn input) {
 
-        PersonViewListIn personViewList = new PersonViewListIn();
+        Iterable<Person> allPersons = personDao.findAll();
+        List<PersonViewListOut> list = new ArrayList<>();
 
-        personViewList.setOfficeId(1);
-        personViewList.setLastName("testLastName");
-        personViewList.setFirstName("testFirstName");
-        personViewList.setMiddleName("testMiddleName");
-        personViewList.setPost("testPost");
-        personViewList.setDocCode("testDocCode");
-        personViewList.setCountryCode("testCountryCode");
+        for (Person person: allPersons) {
+            if (person.getOffice().getId() == input.getOfficeId()) {
+                if (input.getLastName() == null  ||  person.getLastName().equals(input.getLastName())) {
+                    if (input.getFirstName() == null  ||  person.getFirstName().equals(input.getFirstName())) {
+                        if (input.getMiddleName() == null  ||  person.getMiddleName().equals(input.getMiddleName())) {
+                            if (input.getPost() == null  ||  person.getPost().equals(input.getPost())) {
+                                if (input.getDocCode() == null  ||  person.getDocument().getDocType().getCode().equals(input.getDocCode())) {
+                                    if (input.getCountryCode() == null  ||  person.getCountry().getCode().equals(input.getCountryCode())) {
+                                        addPersonToList(person, list);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
-        PersonViewListOut personViewListOut = new PersonViewListOut();
-
-        personViewListOut.setId(5);
-        personViewListOut.setLastName("testOutLastName");
-        personViewListOut.setFirstName("testOutFirstName");
-        personViewListOut.setMiddleName("testOutMiddleName");
-        personViewListOut.setPost("testOutPost");
-
-        return Arrays.asList(personViewListOut);
+        return list;
     }
 
     @GetMapping("/api/person/{id}")
     public PersonViewId getPersonId(@PathVariable Integer id) {
 
+        Person person = personDao.findById(id).get();
         PersonViewId personViewId = new PersonViewId();
 
-        personViewId.setId(1);
-        personViewId.setLastName("testLastName");
-        personViewId.setFirstName("testFirstName");
-        personViewId.setMiddleName("testMiddleName");
-        personViewId.setPost("testPost");
-        personViewId.setPhone("testPhone");
-        personViewId.setDocName("testDocName");
-        personViewId.setDocumentNumber("testDocumentNumber");
-        personViewId.setDocumentDate(new Date(2012, 10, 18));
+        personViewId.setId(person.getId());
+        personViewId.setLastName(person.getLastName());
+        personViewId.setFirstName(person.getFirstName());
+        personViewId.setMiddleName(person.getMiddleName());
+        personViewId.setPost(person.getPost());
+        personViewId.setPhone(person.getPhone());
+        personViewId.setDocName(person.getDocument().getDocType().getName());
+        personViewId.setDocumentNumber(person.getDocument().getNumber());
+        personViewId.setDocumentDate(person.getDocument().getIssueDate());
+        personViewId.setCountryName(person.getCountry().getName());
+        personViewId.setCountryCode(person.getCountry().getCode());
+        personViewId.setIdentified(person.isIdentified());
 
         return personViewId;
     }
@@ -56,47 +81,94 @@ public class PersonController {
     @PostMapping("/api/person/update")
     public PersonViewUpdateOut getPersonUpdate(@RequestBody PersonViewUpdateIn input) {
 
-        PersonViewUpdateIn personViewUpdate = new PersonViewUpdateIn();
+        Person person = personDao.findById(input.getId()).get();
+        Office office = officeDao.findById(input.getOfficeId()).get();
 
-        personViewUpdate.setId(6);
-        personViewUpdate.setOfficeId(4);
-        personViewUpdate.setFirstName("testFirstName");
-        personViewUpdate.setLastName("testLastName");
-        personViewUpdate.setMiddleName("testMiddleName");
-        personViewUpdate.setPost("testPost");
-        personViewUpdate.setPhone("testPhone");
-        personViewUpdate.setDocName("testDocName");
-        personViewUpdate.setDocumentNumber("testDocNumber");
-        personViewUpdate.setDocumentDate(new Date(2001, 12, 1));
-        personViewUpdate.setCountryCode("testCountryCode");
-        personViewUpdate.setIdentified(true);
+        person.setOffice(office);
+        person.setLastName(input.getLastName());
+        person.setFirstName(input.getFirstName());
+        person.setMiddleName(input.getMiddleName());
+        person.setPost(input.getPost());
+        person.setPhone(input.getPhone());
 
-        PersonViewUpdateOut personViewUpdateOut = new PersonViewUpdateOut();
-        personViewUpdateOut.setResult("success");
+        Document document = new Document();
+        DocType docType = docTypeDao.findByName(input.getDocName());
+        if (docType.getName().equals(input.getDocName())) {
+            document.setDocType(docType);
+        }
 
-        return personViewUpdateOut;
+        document.setNumber(input.getDocumentNumber());
+        document.setIssueDate(input.getDocumentDate());
+        person.setDocument(document);
+
+        Country country = countryDao.findByCode(input.getCountryCode());
+        person.setCountry(country);
+
+        person.setIdentified(input.isIdentified());
+
+        PersonViewUpdateOut output = new PersonViewUpdateOut();
+        try {
+            documentDao.save(document);
+            personDao.save(person);
+            output.setResult("success");
+            return output;
+        } catch (Exception e) {
+            e.printStackTrace();
+            output.setResult("failure");
+            return output;
+        }
     }
 
     @PostMapping("/api/person/save")
     public PersonViewSaveOut getPersonSave(@RequestBody PersonViewSaveIn input) {
 
-        PersonViewSaveIn personViewSave = new PersonViewSaveIn();
+        Person person = new Person();
+        Office office = officeDao.findById(input.getOfficeId()).get();
 
-        personViewSave.setOfficeId(7);
-        personViewSave.setFirstName("testFirstName");
-        personViewSave.setLastName("testLastName");
-        personViewSave.setMiddleName("testMiddleName");
-        personViewSave.setPost("testPost");
-        personViewSave.setPhone("testPhone");
-        personViewSave.setDocCode("testDocCode");
-        personViewSave.setDocName("testDocName");
-        personViewSave.setDocumentNumber("testDocNumber");
-        personViewSave.setDocumentDate(new Date(1999, 12, 9));
+        person.setOffice(office);
+        person.setLastName(input.getLastName());
+        person.setFirstName(input.getFirstName());
+        person.setMiddleName(input.getMiddleName());
+        person.setPost(input.getPost());
+        person.setPhone(input.getPhone());
 
-        PersonViewSaveOut personViewSaveOut = new PersonViewSaveOut();
-        personViewSaveOut.setResult("success");
+        Document document = new Document();
+        DocType docType = docTypeDao.findByCode(input.getDocCode());
+        if (docType.getCode().equals(input.getDocCode())) {
+            document.setDocType(docType);
+        }
 
-        return personViewSaveOut;
+        document.setNumber(input.getDocumentNumber());
+        document.setIssueDate(input.getDocumentDate());
+        person.setDocument(document);
+
+        Country country = countryDao.findByCode(input.getCountryCode());
+        person.setCountry(country);
+
+        person.setIdentified(input.isIdentified());
+
+        PersonViewSaveOut output = new PersonViewSaveOut();
+        try {
+            documentDao.save(document);
+            personDao.save(person);
+            output.setResult("success");
+            return output;
+        } catch (Exception e) {
+            e.printStackTrace();
+            output.setResult("failure");
+            return output;
+        }
+
+
     }
 
+    private void addPersonToList(Person person, List<PersonViewListOut> list) {
+        PersonViewListOut output = new PersonViewListOut();
+        output.setId(person.getId());
+        output.setLastName(person.getLastName());
+        output.setFirstName(person.getFirstName());
+        output.setMiddleName(person.getMiddleName());
+        output.setPost(person.getPost());
+        list.add(output);
+    }
 }

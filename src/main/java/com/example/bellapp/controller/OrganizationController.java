@@ -1,88 +1,99 @@
 package com.example.bellapp.controller;
 
 
+import com.example.bellapp.dao.OrganizationDao;
+import com.example.bellapp.model.Organization;
+import com.example.bellapp.service.OrganizationService;
 import com.example.bellapp.view.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 public class OrganizationController {
 
+    @Autowired
+    private OrganizationDao organizationDao;
+
+    @Autowired
+    private OrganizationService organizationService;
+
     @PostMapping("/api/organization/list")
     public List<OrganizationViewListOut> getOrganizationList(@RequestBody OrganizationViewListIn input) {
-//TODO: add todo
-        OrganizationViewListIn organizationViewList = new OrganizationViewListIn();
 
-        organizationViewList.setName("testName");
-        organizationViewList.setInn("testInn");
-        organizationViewList.setActive(true);
+        Iterable<Organization> allOrganizations = organizationDao.findAll();
+        List<OrganizationViewListOut> list = new ArrayList<>();
 
-        OrganizationViewListOut organizationViewListOut = new OrganizationViewListOut();
+        for (Organization organization: allOrganizations) {
+            if (input.getName().equals(organization.getName())) {
+               if (input.getInn() == null  ||  input.getInn().equals(organization.getInn())) {
+                   addOrganizationToList(organization, list);
+               }
+            }
+        }
 
-        organizationViewListOut.setId(1);
-        organizationViewListOut.setName("testOutName");
-        organizationViewListOut.setActive(true);
-
-        return Arrays.asList(organizationViewListOut);
+        return list;
     }
 
     @GetMapping("/api/organization/{id}")
     public OrganizationViewId getOrganizationId(@PathVariable Integer id) {
 
-        OrganizationViewId organizationViewId = new OrganizationViewId();
+        Organization organization = organizationDao.findById(id).get();
+        OrganizationViewId output = new OrganizationViewId();
 
-        organizationViewId.setId(12);
-        organizationViewId.setName("testName");
-        organizationViewId.setFullName("testFullName");
-        organizationViewId.setInn("testInn");
-        organizationViewId.setKpp("testKpp");
-        organizationViewId.setAddress("testAddress");
-        organizationViewId.setPhone("testPhone");
-        organizationViewId.setActive(true);
+        output.setId(organization.getId());
+        output.setName(organization.getName());
+        output.setFullName(organization.getFullName());
+        output.setInn(organization.getInn());
+        output.setKpp(organization.getKpp());
+        output.setAddress(organization.getAddress());
+        output.setPhone(organization.getPhone());
+        output.setActive(organization.isActive());
 
-        return organizationViewId;
+        return output;
 
     }
 
     @PostMapping("/api/organization/update")
     public OrganizationViewUpdateOut getOrganizationUpdate(@RequestBody OrganizationViewUpdateIn input) {
 
-        OrganizationViewUpdateIn organizationViewUpdate = new OrganizationViewUpdateIn();
+        return organizationService.updateOrganization(input);
 
-        organizationViewUpdate.setId(2);
-        organizationViewUpdate.setName("testName");
-        organizationViewUpdate.setFullName("testFullName");
-        organizationViewUpdate.setInn("testInn");
-        organizationViewUpdate.setKpp("testKpp");
-        organizationViewUpdate.setAddress("testAddress");
-        organizationViewUpdate.setPhone("testPhone");
-        organizationViewUpdate.setActive(true);
-
-        OrganizationViewUpdateOut organizationViewUpdateOut = new OrganizationViewUpdateOut();
-        organizationViewUpdateOut.setResult("success");
-
-        return organizationViewUpdateOut;
     }
 
     @PostMapping("/api/organization/save")
     public OrganizationViewSaveOut getOrganizationSave(@RequestBody OrganizationViewSaveIn input) {
 
-        OrganizationViewSaveIn organizationViewSave = new OrganizationViewSaveIn();
+        Organization organization = new Organization();
 
-        organizationViewSave.setName("testName");
-        organizationViewSave.setFullName("testFullName");
-        organizationViewSave.setInn("testInn");
-        organizationViewSave.setKpp("testKpp");
-        organizationViewSave.setAddress("testAddress");
-        organizationViewSave.setPhone("testPhone");
-        organizationViewSave.setActive(true);
-//Conttoller ->DAO
-        OrganizationViewSaveOut organizationViewSaveOut = new OrganizationViewSaveOut();
-        organizationViewSaveOut.setResult("success");
+        //organization.setVersion(1);
+        organization.setName(input.getName());
+        organization.setFullName(input.getFullName());
+        organization.setInn(input.getInn());
+        organization.setKpp(input.getKpp());
+        organization.setAddress(input.getAddress());
+        organization.setPhone(input.getPhone());
+        organization.setActive(input.isActive());
 
-        return organizationViewSaveOut;
+        OrganizationViewSaveOut output = new OrganizationViewSaveOut();
+        try {
+            organizationDao.save(organization);
+            output.setResult("success");
+            return output;
+        } catch (Exception e) {
+            e.printStackTrace();
+            output.setResult("failure");
+            return output;
+        }
     }
 
+    private void addOrganizationToList(Organization organization, List<OrganizationViewListOut> list) {
+        OrganizationViewListOut output = new OrganizationViewListOut();
+        output.setId(organization.getId());
+        output.setName(organization.getName());
+        output.setActive(organization.isActive());
+        list.add(output);
+    }
 }

@@ -35,25 +35,3 @@ public class PersonViewUpdateIn {
     private boolean isIdentified;
 
 }
-
-//11. api/user/update
-//        In:
-//        {
-//        “id”:””, //обязательный параметр
-//        “officeId”:””,
-//        “firstName”:””, //обязательный параметр
-//        “secondName”:””,
-//        “middleName”:””,
-//        “position”:”” //обязательный параметр
-//        “phone”,””,
-//        “docName”:””,
-//        “docNumber”:””,
-//        “docDate”:””,
-//        “citizenshipCode”:””,
-//        “isIdentified”:”true” //пример
-//        }
-//
-//        Out:
-//        {
-//        “result”:”success”
-//        }

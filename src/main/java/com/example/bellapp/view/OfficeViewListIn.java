@@ -13,26 +13,9 @@ import javax.validation.constraints.NotEmpty;
 public class OfficeViewListIn {
 
     @NotEmpty
-    private Integer ogrId;
+    private Integer orgId;
     private String name;
     private String phone;
     private boolean isActive;
 
 }
-
-//5. api/office/list
-//        In (фильтр):
-//        {
-//        “orgId”:””, //обязательный параметр
-//        “name”:””,
-//        “phone”:””,
-//        “isActive”
-//        }
-//
-//        Out:
-//        [
-//        {
-//        “id”:””,
-//        “name”:””,
-//        “isActive”:”true”
-//        },

@@ -77,52 +77,68 @@ INSERT INTO doc_type (version, code, name) VALUES (
 );
 
 
-INSERT INTO organization (version, full_name, inn, kpp) VALUES (
+INSERT INTO organization (version, name, full_name, inn, kpp, address, phone, is_active) VALUES (
        1,
        'Автосервис "У Ашота"',
+       'ИП Абрамян АФ',
        '194038920015',
-       '000539321'
+       '000539321',
+       'Леннинградское шоссе, 147с2',
+       '+7 495 138 03 48',
+       true
 );
-INSERT INTO organization (version, full_name, inn, kpp) VALUES (
+INSERT INTO organization (version, name, full_name, inn, kpp, address, phone, is_active) VALUES (
        1,
+       'Школа №429',
        'Средний муниципальный образовательный центр №429',
        '939601840037',
-       '92601112'
+       '92601112',
+       'Улица ЧертейКотломешающих ад 13, котел 666',
+       '+0 666 666 13 13',
+       true
 );
-INSERT INTO organization (version, full_name, inn, kpp) VALUES (
+INSERT INTO organization (version, name, full_name, inn, kpp, address, phone, is_active) VALUES (
        1,
        'Кофейня "На луне"',
+       'ООО ГК Заварушкин и партнеры',
        '000003749148',
-       '389000123'
+       '389000123',
+       'Ленинский проспект 19/48',
+       '+7 499 842 11 80',
+       true
 );
 
-INSERT INTO office (version, org_id, name, address, phone) VALUES (
+INSERT INTO office (version, org_id, name, address, phone, is_active) VALUES (
        1,
        1,
        'Офис на ленинградке',
        'Леннинградское шоссе, 147с2',
-       '+7 495 138 03 48'
+       '+7 495 138 03 48',
+       true
 );
-INSERT INTO office (version, org_id, name, address, phone) VALUES (
+INSERT INTO office (version, org_id, name, address, phone, is_active) VALUES (
        1,
        2,
        'Корпус 1',
        'Улица Володарского, 64',
-       '+7 495 444 23 50'
+       '+7 495 444 23 50',
+       true
 );
-INSERT INTO office (version, org_id, name, address, phone) VALUES (
+INSERT INTO office (version, org_id, name, address, phone, is_active) VALUES (
        1,
        3,
        'ТЦ "Атриум"',
        'Земляной вал, 33',
-       '+7 495 138 03 48'
+       '+7 495 138 03 48',
+       true
 );
-INSERT INTO office (version, org_id, name, address, phone) VALUES (
+INSERT INTO office (version, org_id, name, address, phone, is_active) VALUES (
        1,
        3,
        'ТЦ "Метрополис"',
        'Ленинградское шоссе, 16Ас4',
-       '+7 495 138 03 48'
+       '+7 495 138 03 48',
+       true
 );
 
 
@@ -132,7 +148,8 @@ INSERT INTO document (version, doc_type_id, number, issue_date) VALUES (
        '3496123',
        '2018-10-26'
 );
-INSERT INTO person (version, office_id, last_name, first_name, middle_name, post, phone, document_id, country_id) VALUES (
+INSERT INTO person (version, office_id, last_name, first_name, middle_name,
+                    post, phone, document_id, country_id, is_identified) VALUES (
        1,
        1,
        'Абдулаев',
@@ -141,7 +158,8 @@ INSERT INTO person (version, office_id, last_name, first_name, middle_name, post
        'Директор',
        '+7 903 490 32 23',
        1,
-       4
+       4,
+       true
 );
 
 INSERT INTO document (version, doc_type_id, number, issue_date) VALUES (
@@ -150,7 +168,8 @@ INSERT INTO document (version, doc_type_id, number, issue_date) VALUES (
        '2408 39501839',
        '2002-11-13'
 );
-INSERT INTO person (version, office_id, last_name, first_name, middle_name, post, phone, document_id, country_id) VALUES (
+INSERT INTO person (version, office_id, last_name, first_name, middle_name,
+                    post, phone, document_id, country_id, is_identified) VALUES (
        1,
        2,
        'Павлова',
@@ -159,7 +178,8 @@ INSERT INTO person (version, office_id, last_name, first_name, middle_name, post
        'Учитель химии',
        '+7 903 490 32 23',
        2,
-       1
+       1,
+       true
 );
 
 INSERT INTO document (version, doc_type_id, number, issue_date) VALUES (
@@ -168,7 +188,8 @@ INSERT INTO document (version, doc_type_id, number, issue_date) VALUES (
        '4609 45671300',
        '2014-04-02'
 );
-INSERT INTO person (version, office_id, last_name, first_name, middle_name, post, phone, document_id, country_id) VALUES (
+INSERT INTO person (version, office_id, last_name, first_name, middle_name,
+                    post, phone, document_id, country_id, is_identified) VALUES (
        1,
        3,
        'Толоконников',
@@ -177,5 +198,6 @@ INSERT INTO person (version, office_id, last_name, first_name, middle_name, post
        'Барриста',
        '+7 911 009 11 99',
        3,
-       1
+       1,
+       true
 );

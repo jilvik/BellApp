@@ -21,7 +21,7 @@ import javax.persistence.Version;
 public class Office {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 
@@ -48,6 +48,12 @@ public class Office {
      */
     @Column (name = "phone", length = 30, nullable = false)
     private String phone;
+
+    /**
+     * Office active
+     */
+    @Column (name = "is_active", nullable = false)
+    private boolean isActive;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "org_id")
@@ -80,6 +86,14 @@ public class Office {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 
     public Organization getOrganization() {

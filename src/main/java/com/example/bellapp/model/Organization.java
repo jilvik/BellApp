@@ -18,7 +18,7 @@ import javax.persistence.Version;
 public class Organization {
 
     @Id
-    @GeneratedValue (strategy = GenerationType.AUTO)
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     @Column (name = "id", nullable = false)
     private Integer id;
 
@@ -27,6 +27,12 @@ public class Organization {
      */
     @Version
     private Integer version;
+
+    /**
+     * Organization name
+     */
+    @Column (name = "name", length = 50, nullable = false)
+    private String name;
 
     /**
      * Full organization name
@@ -46,9 +52,39 @@ public class Organization {
     @Column (name = "kpp", length = 9, nullable = false)
     private String kpp;
 
+    /**
+     * Organization address
+     */
+    @Column (name = "address", length = 250, nullable = false)
+    private String address;
 
-    public int getId() {
+    /**
+     * Organization phone
+     */
+    @Column (name = "phone", length = 30, nullable = false)
+    private String phone;
+
+    /**
+     * Organization active
+     */
+    @Column (name = "is_active", nullable = false)
+    private boolean isActive;
+
+    //TODO: maybe it's unnecessary field and it needs to be remove
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
+
+    public Integer getId() {
         return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getFullName() {
@@ -73,5 +109,29 @@ public class Organization {
 
     public void setKpp(String kpp) {
         this.kpp = kpp;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 }

@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.validation.constraints.NotEmpty;
 import java.util.Date;
 
 @Getter
@@ -12,10 +13,15 @@ import java.util.Date;
 @ToString
 public class PersonViewSaveIn {
 
+    @NotEmpty
     private Integer officeId;
     private String lastName;
+
+    @NotEmpty
     private String firstName;
     private String middleName;
+
+    @NotEmpty
     private String post;
     private String phone;
     private String docCode;
@@ -26,20 +32,3 @@ public class PersonViewSaveIn {
     private boolean isIdentified;
 
 }
-
-//12. api/user/save
-//        In:
-//        {
-//        “officeId”:””, //обязательный параметр
-//        “firstName”:””, //обязательный параметр
-//        “secondName”:””,
-//        “middleName”:””,
-//        “position”:”” //обязательный параметр
-//        “phone”,””,
-//        “docCode”:””,
-//        “docName”:””,
-//        “docNumber”:””,
-//        “docDate”:””,
-//        “citizenshipCode”:””,
-//        “isIdentified”:”true” //пример
-//        }

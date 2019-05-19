@@ -26,21 +26,3 @@ public class PersonViewId {
     private boolean isIdentified;
 
 }
-
-//10. api/user/{id}
-//        method:GET
-//        Out:
-//        {
-//        “id”:””,
-//        “firstName”:””,
-//        “secondName”:””,
-//        “middleName”:””,
-//        “position”:””
-//        “phone”,””,
-//        “docName”:””,
-//        “docNumber”:””,
-//        “docDate”:””,
-//        “citizenshipName”:””,
-//        “citizenshipCode”:””,
-//        “isIdentified”:”true”
-//        }
