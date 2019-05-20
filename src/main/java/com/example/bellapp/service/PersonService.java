@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PersonService implements PersonServiceInterface {
@@ -58,21 +59,22 @@ public class PersonService implements PersonServiceInterface {
     @Override
     public PersonViewId getPerson(Integer id) {
 
-        Person person = personDao.findById(id).get();
         PersonViewId personViewId = new PersonViewId();
-
-        personViewId.setId(person.getId());
-        personViewId.setLastName(person.getLastName());
-        personViewId.setFirstName(person.getFirstName());
-        personViewId.setMiddleName(person.getMiddleName());
-        personViewId.setPost(person.getPost());
-        personViewId.setPhone(person.getPhone());
-        personViewId.setDocName(person.getDocument().getDocType().getName());
-        personViewId.setDocumentNumber(person.getDocument().getNumber());
-        personViewId.setDocumentDate(person.getDocument().getIssueDate());
-        personViewId.setCountryName(person.getCountry().getName());
-        personViewId.setCountryCode(person.getCountry().getCode());
-        personViewId.setIdentified(person.isIdentified());
+        Optional<Person> optional = personDao.findById(id);
+        optional.ifPresent(person -> {
+            personViewId.setId(person.getId());
+            personViewId.setLastName(person.getLastName());
+            personViewId.setFirstName(person.getFirstName());
+            personViewId.setMiddleName(person.getMiddleName());
+            personViewId.setPost(person.getPost());
+            personViewId.setPhone(person.getPhone());
+            personViewId.setDocName(person.getDocument().getDocType().getName());
+            personViewId.setDocumentNumber(person.getDocument().getNumber());
+            personViewId.setDocumentDate(person.getDocument().getIssueDate());
+            personViewId.setCountryName(person.getCountry().getName());
+            personViewId.setCountryCode(person.getCountry().getCode());
+            personViewId.setIdentified(person.isIdentified());
+        });
 
         return personViewId;
     }
@@ -80,15 +82,16 @@ public class PersonService implements PersonServiceInterface {
     @Override
     public PersonViewUpdateOut updatePerson(PersonViewUpdateIn input) {
 
-        Person person = personDao.findById(input.getId()).get();
-        Office office = officeDao.findById(input.getOfficeId()).get();
-
-        person.setOffice(office);
-        person.setLastName(input.getLastName());
-        person.setFirstName(input.getFirstName());
-        person.setMiddleName(input.getMiddleName());
-        person.setPost(input.getPost());
-        person.setPhone(input.getPhone());
+        Optional<Person> optionalPerson = personDao.findById(input.getId());
+        Optional<Office> optionalOffice = officeDao.findById(input.getOfficeId());
+        optionalPerson.ifPresent(person -> {
+            optionalOffice.ifPresent(office -> person.setOffice(optionalOffice.get()));
+            person.setLastName(input.getLastName());
+            person.setFirstName(input.getFirstName());
+            person.setMiddleName(input.getMiddleName());
+            person.setPost(input.getPost());
+            person.setPhone(input.getPhone());
+        });
 
         Document document = new Document();
         DocType docType = docTypeDao.findByName(input.getDocName());
@@ -98,17 +101,17 @@ public class PersonService implements PersonServiceInterface {
 
         document.setNumber(input.getDocumentNumber());
         document.setIssueDate(input.getDocumentDate());
-        person.setDocument(document);
+        optionalPerson.ifPresent(person -> person.setDocument(document));
 
         Country country = countryDao.findByCode(input.getCountryCode());
-        person.setCountry(country);
+        optionalPerson.ifPresent(person -> person.setCountry(country));
 
-        person.setIdentified(input.isIdentified());
+        optionalPerson.ifPresent(person -> person.setIdentified(input.isIdentified()));
 
         PersonViewUpdateOut output = new PersonViewUpdateOut();
         try {
             documentDao.save(document);
-            personDao.save(person);
+            optionalPerson.ifPresent(person -> personDao.save(person));
             output.setResult("success");
             return output;
         } catch (Exception e) {
@@ -122,9 +125,9 @@ public class PersonService implements PersonServiceInterface {
     public PersonViewSaveOut savePerson(PersonViewSaveIn input) {
 
         Person person = new Person();
-        Office office = officeDao.findById(input.getOfficeId()).get();
+        Optional<Office> optional = officeDao.findById(input.getOfficeId());
+        optional.ifPresent(office -> person.setOffice(optional.get()));
 
-        person.setOffice(office);
         person.setLastName(input.getLastName());
         person.setFirstName(input.getFirstName());
         person.setMiddleName(input.getMiddleName());

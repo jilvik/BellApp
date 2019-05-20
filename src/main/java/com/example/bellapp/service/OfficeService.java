@@ -88,6 +88,7 @@ public class OfficeService implements OfficeServiceInterface {
         Office office = new Office();
         Optional<Organization> optional = organizationDao.findById(input.getOrgId());
         optional.ifPresent(organization -> office.setOrganization(optional.get()));
+
         office.setName(input.getName());
         office.setAddress(input.getAddress());
         office.setPhone(input.getPhone());

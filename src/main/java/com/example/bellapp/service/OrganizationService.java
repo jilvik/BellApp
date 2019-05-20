@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OrganizationService implements OrganizationServiceInterface {
@@ -37,17 +38,18 @@ public class OrganizationService implements OrganizationServiceInterface {
     @Override
     public OrganizationViewId getOrganization(Integer id) {
 
-        Organization organization = organizationDao.findById(id).get();
         OrganizationViewId output = new OrganizationViewId();
-
-        output.setId(organization.getId());
-        output.setName(organization.getName());
-        output.setFullName(organization.getFullName());
-        output.setInn(organization.getInn());
-        output.setKpp(organization.getKpp());
-        output.setAddress(organization.getAddress());
-        output.setPhone(organization.getPhone());
-        output.setActive(organization.isActive());
+        Optional<Organization> optional = organizationDao.findById(id);
+        optional.ifPresent(organization -> {
+            output.setId(organization.getId());
+            output.setName(organization.getName());
+            output.setFullName(organization.getFullName());
+            output.setInn(organization.getInn());
+            output.setKpp(organization.getKpp());
+            output.setAddress(organization.getAddress());
+            output.setPhone(organization.getPhone());
+            output.setActive(organization.isActive());
+        });
 
         return output;
     }
@@ -56,19 +58,20 @@ public class OrganizationService implements OrganizationServiceInterface {
     @Override
     public OrganizationViewUpdateOut updateOrganization(OrganizationViewUpdateIn input) {
 
-        Organization organization = organizationDao.findById(input.getId()).get();
-
-        organization.setName(input.getName());
-        organization.setFullName(input.getFullName());
-        organization.setInn(input.getInn());
-        organization.setKpp(input.getKpp());
-        organization.setAddress(input.getAddress());
-        organization.setPhone(input.getPhone());
-        organization.setActive(input.isActive());
+        Optional<Organization> optional = organizationDao.findById(input.getId());
+        optional.ifPresent(organization -> {
+            organization.setName(input.getName());
+            organization.setFullName(input.getFullName());
+            organization.setInn(input.getInn());
+            organization.setKpp(input.getKpp());
+            organization.setAddress(input.getAddress());
+            organization.setPhone(input.getPhone());
+            organization.setActive(input.isActive());
+        });
 
         OrganizationViewUpdateOut output = new OrganizationViewUpdateOut();
         try {
-            organizationDao.save(organization);
+            optional.ifPresent(organization -> organizationDao.save(organization));
             output.setResult("success");
             return output;
         } catch (Exception e) {
