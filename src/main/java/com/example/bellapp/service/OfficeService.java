@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OfficeService implements OfficeServiceInterface {
@@ -44,14 +45,15 @@ public class OfficeService implements OfficeServiceInterface {
     @Override
     public OfficeViewId getOffice(Integer id) {
 
-        Office office = officeDao.findById(id).get();
         OfficeViewId officeViewId = new OfficeViewId();
-
-        officeViewId.setId(office.getId());
-        officeViewId.setName(office.getName());
-        officeViewId.setAddress(office.getAddress());
-        officeViewId.setPhone(office.getPhone());
-        officeViewId.setActive(office.isActive());
+        Optional<Office> optional = officeDao.findById(id);
+        optional.ifPresent(office -> {
+            officeViewId.setId(office.getId());
+            officeViewId.setName(office.getName());
+            officeViewId.setAddress(office.getAddress());
+            officeViewId.setPhone(office.getPhone());
+            officeViewId.setActive(office.isActive());
+        });
 
         return officeViewId;
     }
@@ -60,16 +62,17 @@ public class OfficeService implements OfficeServiceInterface {
     @Override
     public OfficeViewUpdateOut updateOffice(OfficeViewUpdateIn input) {
 
-        Office office = officeDao.findById(input.getId()).get();
-
-        office.setName(input.getName());
-        office.setAddress(input.getAddress());
-        office.setPhone(input.getPhone());
-        office.setActive(input.isActive());
+        Optional<Office> optional = officeDao.findById(input.getId());
+        optional.ifPresent(office -> {
+            office.setName(input.getName());
+            office.setAddress(input.getAddress());
+            office.setPhone(input.getPhone());
+            office.setActive(input.isActive());
+        });
 
         OfficeViewUpdateOut officeViewUpdateOut = new OfficeViewUpdateOut();
         try {
-            officeDao.save(office);
+            optional.ifPresent(office -> officeDao.save(office));
             officeViewUpdateOut.setResult("success");
             return officeViewUpdateOut;
         } catch (Exception e) {
@@ -83,9 +86,8 @@ public class OfficeService implements OfficeServiceInterface {
     public OfficeViewSaveOut saveOffice(OfficeViewSaveIn input) {
 
         Office office = new Office();
-        Organization organization = organizationDao.findById(input.getOrgId()).get();
-
-        office.setOrganization(organization);
+        Optional<Organization> optional = organizationDao.findById(input.getOrgId());
+        optional.ifPresent(organization -> office.setOrganization(optional.get()));
         office.setName(input.getName());
         office.setAddress(input.getAddress());
         office.setPhone(input.getPhone());
