@@ -17,6 +17,7 @@ public class OrganizationService implements OrganizationServiceInterface {
     private OrganizationDao organizationDao;
 
 
+    @Override
     public List<OrganizationViewListOut> findOrganizations(OrganizationViewListIn input) {
 
         Iterable<Organization> allOrganizations = organizationDao.findAll();
@@ -33,6 +34,7 @@ public class OrganizationService implements OrganizationServiceInterface {
         return list;
     }
 
+    @Override
     public OrganizationViewId getOrganization(Integer id) {
 
         Organization organization = organizationDao.findById(id).get();
@@ -51,6 +53,7 @@ public class OrganizationService implements OrganizationServiceInterface {
     }
 
     @Transactional
+    @Override
     public OrganizationViewUpdateOut updateOrganization(OrganizationViewUpdateIn input) {
 
         Organization organization = organizationDao.findById(input.getId()).get();
@@ -75,6 +78,7 @@ public class OrganizationService implements OrganizationServiceInterface {
         }
     }
 
+    @Override
     public OrganizationViewSaveOut saveOrganization(OrganizationViewSaveIn input) {
 
         Organization organization = new Organization();

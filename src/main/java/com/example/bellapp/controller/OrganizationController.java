@@ -8,14 +8,17 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+
 @RestController
+@RequestMapping(produces = APPLICATION_JSON_VALUE)
 public class OrganizationController {
 
     @Autowired
     private OrganizationService organizationService;
 
 
-    @PostMapping("/api/organization/list")
+    @PostMapping(value = "/api/organization/list", consumes = APPLICATION_JSON_VALUE)
     public List<OrganizationViewListOut> getOrganizationList(@RequestBody OrganizationViewListIn input) {
 
         return organizationService.findOrganizations(input);
@@ -27,13 +30,13 @@ public class OrganizationController {
         return organizationService.getOrganization(id);
     }
 
-    @PostMapping("/api/organization/update")
+    @PostMapping(value = "/api/organization/update", consumes = APPLICATION_JSON_VALUE)
     public OrganizationViewUpdateOut getOrganizationUpdate(@RequestBody OrganizationViewUpdateIn input) {
 
         return organizationService.updateOrganization(input);
     }
 
-    @PostMapping("/api/organization/save")
+    @PostMapping(value = "/api/organization/save", consumes = APPLICATION_JSON_VALUE)
     public OrganizationViewSaveOut getOrganizationSave(@RequestBody OrganizationViewSaveIn input) {
 
         return organizationService.saveOrganization(input);
