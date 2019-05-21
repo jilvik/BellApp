@@ -5,14 +5,14 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotBlank;
 
 @Getter
 @Setter
 @ToString
 public class PersonViewListIn {
 
-    @NotEmpty
+    @NotBlank
     private Integer officeId;
     private String lastName;
     private String firstName;

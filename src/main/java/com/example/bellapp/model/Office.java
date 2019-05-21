@@ -34,25 +34,25 @@ public class Office {
     /**
      * Office name
      */
-    @Column (name = "name", length = 40, nullable = false)
+    @Column (name = "name", length = 40)
     private String name;
 
     /**
      * Office address
      */
-    @Column (name = "address", length = 250, nullable = false)
+    @Column (name = "address", length = 250)
     private String address;
 
     /**
      * Office phone
      */
-    @Column (name = "phone", length = 30, nullable = false)
+    @Column (name = "phone", length = 30)
     private String phone;
 
     /**
      * Office active
      */
-    @Column (name = "is_active", nullable = false)
+    @Column (name = "is_active")
     private boolean isActive;
 
     @ManyToOne(fetch = FetchType.LAZY)

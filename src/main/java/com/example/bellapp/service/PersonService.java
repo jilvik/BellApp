@@ -86,32 +86,44 @@ public class PersonService implements PersonServiceInterface {
         Optional<Office> optionalOffice = officeDao.findById(input.getOfficeId());
         optionalPerson.ifPresent(person -> {
             optionalOffice.ifPresent(office -> person.setOffice(optionalOffice.get()));
-            person.setLastName(input.getLastName());
+            if (input.getLastName() != null) {
+                person.setLastName(input.getLastName());
+            }
             person.setFirstName(input.getFirstName());
-            person.setMiddleName(input.getMiddleName());
+            if (input.getMiddleName() != null) {
+                person.setMiddleName(input.getMiddleName());
+            }
             person.setPost(input.getPost());
-            person.setPhone(input.getPhone());
+            if (input.getPhone() != null) {
+                person.setPhone(input.getPhone());
+            }
+
+            //TODO: create method for document adding
+            Document document = person.getDocument();
+            if (input.getDocName() != null) {
+                DocType docType = docTypeDao.findByName(input.getDocName());
+                document.setDocType(docType);
+            }
+            if (input.getDocumentNumber() != null) {
+                document.setNumber(input.getDocumentNumber());
+            }
+            if (input.getDocumentDate() != null) {
+                document.setIssueDate(input.getDocumentDate());
+            }
+            person.setDocument(document);
+
+            Country country = countryDao.findByCode(input.getCountryCode());
+            person.setCountry(country);
+
+            person.setIdentified(input.isIdentified());
         });
-
-        Document document = new Document();
-        DocType docType = docTypeDao.findByName(input.getDocName());
-        if (docType.getName().equals(input.getDocName())) {
-            document.setDocType(docType);
-        }
-
-        document.setNumber(input.getDocumentNumber());
-        document.setIssueDate(input.getDocumentDate());
-        optionalPerson.ifPresent(person -> person.setDocument(document));
-
-        Country country = countryDao.findByCode(input.getCountryCode());
-        optionalPerson.ifPresent(person -> person.setCountry(country));
-
-        optionalPerson.ifPresent(person -> person.setIdentified(input.isIdentified()));
 
         PersonViewUpdateOut output = new PersonViewUpdateOut();
         try {
-            documentDao.save(document);
-            optionalPerson.ifPresent(person -> personDao.save(person));
+            optionalPerson.ifPresent(person -> {
+                documentDao.save(person.getDocument());
+                personDao.save(person);
+            });
             output.setResult("success");
             return output;
         } catch (Exception e) {
@@ -128,21 +140,34 @@ public class PersonService implements PersonServiceInterface {
         Optional<Office> optional = officeDao.findById(input.getOfficeId());
         optional.ifPresent(office -> person.setOffice(optional.get()));
 
-        person.setLastName(input.getLastName());
+        if (input.getLastName() != null) {
+            person.setLastName(input.getLastName());
+        }
+        if (input.getMiddleName() != null) {
+            person.setMiddleName(input.getMiddleName());
+        }
         person.setFirstName(input.getFirstName());
-        person.setMiddleName(input.getMiddleName());
         person.setPost(input.getPost());
-        person.setPhone(input.getPhone());
-
-        Document document = new Document();
-        DocType docType = docTypeDao.findByCode(input.getDocCode());
-        if (docType.getCode().equals(input.getDocCode())) {
-            document.setDocType(docType);
+        if (input.getPhone() != null) {
+            person.setPhone(input.getPhone());
         }
 
-        document.setNumber(input.getDocumentNumber());
-        document.setIssueDate(input.getDocumentDate());
-        person.setDocument(document);
+        if (input.getDocName() != null  ||  input.getDocCode() != null  ||
+            input.getDocumentNumber() != null  ||  input.getDocumentDate() != null) {
+            Document document = new Document();
+            if (input.getDocCode() != null) {
+                DocType docType = docTypeDao.findByCode(input.getDocCode());
+                document.setDocType(docType);
+            } else {
+                if (input.getDocName() != null) {
+                    DocType docType = docTypeDao.findByName(input.getDocName());
+                    document.setDocType(docType);
+                }
+            }
+            document.setNumber(input.getDocumentNumber());
+            document.setIssueDate(input.getDocumentDate());
+            person.setDocument(document);
+        }
 
         Country country = countryDao.findByCode(input.getCountryCode());
         person.setCountry(country);
@@ -151,7 +176,9 @@ public class PersonService implements PersonServiceInterface {
 
         PersonViewSaveOut output = new PersonViewSaveOut();
         try {
-            documentDao.save(document);
+            if (person.getDocument() != null) {
+                documentDao.save(person.getDocument());
+            }
             personDao.save(person);
             output.setResult("success");
             return output;

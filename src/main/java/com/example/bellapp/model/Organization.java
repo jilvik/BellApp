@@ -61,13 +61,13 @@ public class Organization {
     /**
      * Organization phone
      */
-    @Column (name = "phone", length = 30, nullable = false)
+    @Column (name = "phone", length = 30)
     private String phone;
 
     /**
      * Organization active
      */
-    @Column (name = "is_active", nullable = false)
+    @Column (name = "is_active")
     private boolean isActive;
 
 

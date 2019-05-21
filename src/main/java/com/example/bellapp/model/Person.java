@@ -36,7 +36,7 @@ public class Person {
     /**
      * Last name
      */
-    @Column (name = "last_name", length = 20, nullable = false)
+    @Column (name = "last_name", length = 20)
     private String lastName;
 
     /**
@@ -60,13 +60,13 @@ public class Person {
     /**
      * Person phone
      */
-    @Column (name = "phone", length = 20, nullable = false)
+    @Column (name = "phone", length = 20)
     private String phone;
 
     /**
      * Person identified
      */
-    @Column (name = "is_identified", nullable = false)
+    @Column (name = "is_identified")
     private boolean isIdentified;
 
     @ManyToOne (fetch = FetchType.LAZY)

@@ -66,7 +66,9 @@ public class OfficeService implements OfficeServiceInterface {
         optional.ifPresent(office -> {
             office.setName(input.getName());
             office.setAddress(input.getAddress());
-            office.setPhone(input.getPhone());
+            if (input.getPhone() != null) {
+                office.setPhone(input.getPhone());
+            }
             office.setActive(input.isActive());
         });
 
@@ -89,9 +91,15 @@ public class OfficeService implements OfficeServiceInterface {
         Optional<Organization> optional = organizationDao.findById(input.getOrgId());
         optional.ifPresent(organization -> office.setOrganization(optional.get()));
 
-        office.setName(input.getName());
-        office.setAddress(input.getAddress());
-        office.setPhone(input.getPhone());
+        if (input.getName() != null) {
+            office.setName(input.getName());
+        }
+        if (input.getAddress() != null) {
+            office.setAddress(input.getAddress());
+        }
+        if (input.getPhone() != null) {
+            office.setPhone(input.getPhone());
+        }
         office.setActive(input.isActive());
 
         OfficeViewSaveOut officeViewSaveOut = new OfficeViewSaveOut();

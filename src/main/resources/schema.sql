@@ -3,9 +3,9 @@ CREATE TABLE IF NOT EXISTS office (
 
 	org_id        INTEGER       NOT NULL,
 	id            INTEGER       NOT NULL AUTO_INCREMENT,
-	name          VARCHAR(40)   NOT NULL,
-	address       VARCHAR(255)  NOT NULL,
-	phone         VARCHAR(30)   NOT NULL,
+	name          VARCHAR(40),
+	address       VARCHAR(255),
+	phone         VARCHAR(30),
 	is_active     BOOLEAN       NOT NULL,
 
 	PRIMARY KEY (id)
@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS organization (
 	inn           VARCHAR(12)   NOT NULL UNIQUE,
 	kpp           VARCHAR(9)    NOT NULL,
 	address       VARCHAR(255)  NOT NULL,
-    phone         VARCHAR(30)   NOT NULL,
+    phone         VARCHAR(30),
     is_active     BOOLEAN       NOT NULL,
 
 	PRIMARY KEY (id)
@@ -31,13 +31,13 @@ CREATE TABLE IF NOT EXISTS person (
 
     id            INTEGER       NOT NULL AUTO_INCREMENT,
 	office_id     INTEGER       NOT NULL,
-	last_name     VARCHAR(20)   NOT NULL,
+	last_name     VARCHAR(20),
 	first_name    VARCHAR(20)   NOT NULL,
 	middle_name   VARCHAR(20),
 	post          VARCHAR(30)   NOT NULL,
-	phone         VARCHAR(20)   NOT NULL,
-	document_id   INTEGER       NOT NULL,
-	country_id    INTEGER       NOT NULL,
+	phone         VARCHAR(20),
+	document_id   INTEGER,
+	country_id    INTEGER,
 	is_identified BOOLEAN       NOT NULL,
 
 	PRIMARY KEY (id)
@@ -47,9 +47,9 @@ CREATE TABLE IF NOT EXISTS document (
     version       INTEGER       NOT NULL,
 
 	id            INTEGER       NOT NULL AUTO_INCREMENT,
-	doc_type_id   INTEGER       NOT NULL,
-	number        VARCHAR(30)   NOT NULL UNIQUE,
-	issue_date    DATE          NOT NULL,
+	doc_type_id   INTEGER,
+	number        VARCHAR(30)            UNIQUE,
+	issue_date    DATE,
 
 	PRIMARY KEY (id)
 );

@@ -34,11 +34,11 @@ public class Document {
     @Version
     private Integer version;
 
-    @Column (name = "number", length = 30, nullable = false, unique = true)
+    @Column (name = "number", length = 30, unique = true)
     private String number;
 
     @Temporal (TemporalType.DATE)
-    @Column (name = "issue_date", nullable = false)
+    @Column (name = "issue_date")
     private Date issueDate;
 
     @ManyToOne (fetch = FetchType.LAZY)

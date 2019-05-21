@@ -5,29 +5,29 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotBlank;
 
 @Getter
 @Setter
 @ToString
 public class OrganizationViewUpdateIn {
 
-    @NotEmpty
+    @NotBlank
     private Integer id;
 
-    @NotEmpty
+    @NotBlank
     private String name;
 
-    @NotEmpty
+    @NotBlank
     private String fullName;
 
-    @NotEmpty
+    @NotBlank
     private String inn;
 
-    @NotEmpty
+    @NotBlank
     private String kpp;
 
-    @NotEmpty
+    @NotBlank
     private String address;
 
     private String phone;

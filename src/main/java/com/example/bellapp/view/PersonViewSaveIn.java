@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 @Getter
@@ -13,17 +13,17 @@ import java.util.Date;
 @ToString
 public class PersonViewSaveIn {
 
-    @NotEmpty
+    @NotBlank
     private Integer officeId;
 
     private String lastName;
 
-    @NotEmpty
+    @NotBlank
     private String firstName;
 
     private String middleName;
 
-    @NotEmpty
+    @NotBlank
     private String post;
 
     private String phone;

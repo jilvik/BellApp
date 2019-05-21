@@ -65,7 +65,10 @@ public class OrganizationService implements OrganizationServiceInterface {
             organization.setInn(input.getInn());
             organization.setKpp(input.getKpp());
             organization.setAddress(input.getAddress());
-            organization.setPhone(input.getPhone());
+
+            if (input.getPhone() != null) {
+                organization.setPhone(input.getPhone());
+            }
             organization.setActive(input.isActive());
         });
 
@@ -91,7 +94,10 @@ public class OrganizationService implements OrganizationServiceInterface {
         organization.setInn(input.getInn());
         organization.setKpp(input.getKpp());
         organization.setAddress(input.getAddress());
-        organization.setPhone(input.getPhone());
+
+        if (input.getPhone() != null) {
+            organization.setPhone(input.getPhone());
+        }
         organization.setActive(input.isActive());
 
         OrganizationViewSaveOut output = new OrganizationViewSaveOut();

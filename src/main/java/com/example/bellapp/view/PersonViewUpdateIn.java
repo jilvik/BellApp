@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 @Getter
@@ -13,18 +13,18 @@ import java.util.Date;
 @ToString
 public class PersonViewUpdateIn {
 
-    @NotNull
+    @NotBlank
     private Integer id;
 
     private Integer officeId;
-
-    @NotNull
     private String lastName;
 
+    @NotBlank
     private String firstName;
+
     private String middleName;
 
-    @NotNull
+    @NotBlank
     private String post;
 
     private String phone;
