@@ -2,11 +2,22 @@ package com.example.bellapp.controller;
 
 
 import com.example.bellapp.service.PersonService;
-import com.example.bellapp.view.*;
+import com.example.bellapp.view.PersonViewId;
+import com.example.bellapp.view.PersonViewListIn;
+import com.example.bellapp.view.PersonViewListOut;
+import com.example.bellapp.view.PersonViewSaveIn;
+import com.example.bellapp.view.PersonViewSaveOut;
+import com.example.bellapp.view.PersonViewUpdateIn;
+import com.example.bellapp.view.PersonViewUpdateOut;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 

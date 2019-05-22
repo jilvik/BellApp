@@ -1,8 +1,22 @@
 package com.example.bellapp.service;
 
-import com.example.bellapp.dao.*;
-import com.example.bellapp.model.*;
-import com.example.bellapp.view.*;
+import com.example.bellapp.dao.CountryDao;
+import com.example.bellapp.dao.DocTypeDao;
+import com.example.bellapp.dao.DocumentDao;
+import com.example.bellapp.dao.OfficeDao;
+import com.example.bellapp.dao.PersonDao;
+import com.example.bellapp.model.Country;
+import com.example.bellapp.model.DocType;
+import com.example.bellapp.model.Document;
+import com.example.bellapp.model.Office;
+import com.example.bellapp.model.Person;
+import com.example.bellapp.view.PersonViewId;
+import com.example.bellapp.view.PersonViewListIn;
+import com.example.bellapp.view.PersonViewListOut;
+import com.example.bellapp.view.PersonViewSaveIn;
+import com.example.bellapp.view.PersonViewSaveOut;
+import com.example.bellapp.view.PersonViewUpdateIn;
+import com.example.bellapp.view.PersonViewUpdateOut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -114,9 +128,7 @@ public class PersonService implements PersonServiceInterface {
             output.setResult("success");
             return output;
         } catch (Exception e) {
-            e.printStackTrace();
-            output.setResult("failure");
-            return output;
+            throw new RuntimeException("FAILURE: " + e.getMessage(), e);
         }
     }
 
@@ -148,9 +160,7 @@ public class PersonService implements PersonServiceInterface {
             output.setResult("success");
             return output;
         } catch (Exception e) {
-            e.printStackTrace();
-            output.setResult("failure");
-            return output;
+            throw new RuntimeException("FAILURE: " + e.getMessage(), e);
         }
     }
 

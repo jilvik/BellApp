@@ -4,7 +4,13 @@ import com.example.bellapp.dao.OfficeDao;
 import com.example.bellapp.dao.OrganizationDao;
 import com.example.bellapp.model.Office;
 import com.example.bellapp.model.Organization;
-import com.example.bellapp.view.*;
+import com.example.bellapp.view.OfficeViewId;
+import com.example.bellapp.view.OfficeViewListIn;
+import com.example.bellapp.view.OfficeViewListOut;
+import com.example.bellapp.view.OfficeViewSaveIn;
+import com.example.bellapp.view.OfficeViewSaveOut;
+import com.example.bellapp.view.OfficeViewUpdateIn;
+import com.example.bellapp.view.OfficeViewUpdateOut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -78,9 +84,7 @@ public class OfficeService implements OfficeServiceInterface {
             officeViewUpdateOut.setResult("success");
             return officeViewUpdateOut;
         } catch (Exception e) {
-            e.printStackTrace();
-            officeViewUpdateOut.setResult("failure");
-            return officeViewUpdateOut;
+            throw new RuntimeException("FAILURE", e);
         }
     }
 
@@ -108,9 +112,7 @@ public class OfficeService implements OfficeServiceInterface {
             officeViewSaveOut.setResult("success");
             return officeViewSaveOut;
         } catch (Exception e) {
-            e.printStackTrace();
-            officeViewSaveOut.setResult("failure");
-            return officeViewSaveOut;
+            throw new RuntimeException("FAILURE: " + e.getMessage(), e);
         }
     }
 

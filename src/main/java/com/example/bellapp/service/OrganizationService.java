@@ -2,7 +2,13 @@ package com.example.bellapp.service;
 
 import com.example.bellapp.dao.OrganizationDao;
 import com.example.bellapp.model.Organization;
-import com.example.bellapp.view.*;
+import com.example.bellapp.view.OrganizationViewId;
+import com.example.bellapp.view.OrganizationViewListIn;
+import com.example.bellapp.view.OrganizationViewListOut;
+import com.example.bellapp.view.OrganizationViewSaveIn;
+import com.example.bellapp.view.OrganizationViewSaveOut;
+import com.example.bellapp.view.OrganizationViewUpdateIn;
+import com.example.bellapp.view.OrganizationViewUpdateOut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -78,9 +84,7 @@ public class OrganizationService implements OrganizationServiceInterface {
             output.setResult("success");
             return output;
         } catch (Exception e) {
-            e.printStackTrace();
-            output.setResult("failure");
-            return output;
+            throw new RuntimeException("FAILURE: " + e.getMessage(), e);
         }
     }
 
@@ -106,10 +110,9 @@ public class OrganizationService implements OrganizationServiceInterface {
             output.setResult("success");
             return output;
         } catch (Exception e) {
-            e.printStackTrace();
-            output.setResult("failure");
-            return output;
+            throw new RuntimeException("FAILURE: " + e.getMessage(), e);
         }
+
     }
 
     private void addOrganizationToList(Organization organization, List<OrganizationViewListOut> list) {
