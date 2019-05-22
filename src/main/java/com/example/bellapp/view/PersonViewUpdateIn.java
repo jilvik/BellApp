@@ -1,6 +1,7 @@
 package com.example.bellapp.view;
 
 
+import io.swagger.annotations.ApiModel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -8,6 +9,7 @@ import lombok.ToString;
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
+@ApiModel(description = "Request for update person")
 @Getter
 @Setter
 @ToString
