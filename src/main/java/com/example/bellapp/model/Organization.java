@@ -67,7 +67,7 @@ public class Organization {
     /**
      * Organization active
      */
-    @Column (name = "is_active")
+    @Column (name = "is_active", nullable = false)
     private boolean isActive;
 
 

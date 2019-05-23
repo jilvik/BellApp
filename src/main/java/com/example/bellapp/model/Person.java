@@ -66,7 +66,7 @@ public class Person {
     /**
      * Person identified
      */
-    @Column (name = "is_identified")
+    @Column (name = "is_identified", nullable = false)
     private boolean isIdentified;
 
     @ManyToOne (fetch = FetchType.LAZY)

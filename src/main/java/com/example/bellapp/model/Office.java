@@ -52,7 +52,7 @@ public class Office {
     /**
      * Office active
      */
-    @Column (name = "is_active")
+    @Column (name = "is_active", nullable = false)
     private boolean isActive;
 
     @ManyToOne(fetch = FetchType.LAZY)
